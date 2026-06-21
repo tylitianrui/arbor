@@ -1,9 +1,13 @@
 package arbor
 
 type Engine struct {
-	// internal fields
+	// todo: add internal fields
 }
 
 func Open(path string, opts ...Option) (*Engine, error) {
+	options := &Options{}
+	for _, opt := range opts {
+		opt(options)
+	}
 	return &Engine{}, nil
 }
