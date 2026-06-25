@@ -1,10 +1,39 @@
 package arbor
 
-type DB struct {
-	// todo: add internal fields
+type Options struct {
 }
 
-func Open(path string, opt Option) (*DB, error) {
+func (o *Options) Clone() *Options {
+	if o == nil {
+		return &Options{}
+	}
+	newOpt := *o
+	return &newOpt
+}
 
-	return &DB{}, nil
+func (o *Options) Validate() error {
+	return nil
+}
+
+func (o *Options) SetDefaultOptions() {
+
+}
+
+type DB struct {
+	dirname string
+	opts    *Options
+}
+
+func Open(dirname string, opts *Options) (*DB, error) {
+	opts = opts.Clone()
+	opts.SetDefaultOptions()
+
+	if err := opts.Validate(); err != nil {
+		return nil, err
+	}
+	db := &DB{
+		dirname: dirname,
+		opts:    opts,
+	}
+	return db, nil
 }
