@@ -37,3 +37,7 @@ func Open(dirname string, opts *Options) (*DB, error) {
 	}
 	return db, nil
 }
+
+func (db *DB) Close() error {
+	return nil
+}
